@@ -11,7 +11,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import api from './services/api';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://crisis-misinformation-detector.onrender.com/api';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'https://crisis-misinformation-detector.onrender.com/api';
+const API_BASE_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl.replace(/\/$/, '')}/api`;
 const socket = io(import.meta.env.VITE_SOCKET_URL || 'https://crisis-misinformation-detector.onrender.com');
 
 function App() {

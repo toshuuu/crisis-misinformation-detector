@@ -2,7 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { ThumbsUp, ThumbsDown, Shield, MapPin, X } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://crisis-misinformation-detector.onrender.com/api';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'https://crisis-misinformation-detector.onrender.com/api';
+const API_BASE_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl.replace(/\/$/, '')}/api`;
 
 // Simple distance calculation using Haversine formula (avoids geolib dependency issues)
 function calcDistanceMeters(lat1, lon1, lat2, lon2) {
