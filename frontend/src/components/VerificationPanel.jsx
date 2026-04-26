@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { ThumbsUp, ThumbsDown, Shield, MapPin, X } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://crisis-misinformation-detector.onrender.com/api';
 
 // Simple distance calculation using Haversine formula (avoids geolib dependency issues)
 function calcDistanceMeters(lat1, lon1, lat2, lon2) {
