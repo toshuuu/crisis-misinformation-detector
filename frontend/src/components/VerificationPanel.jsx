@@ -31,7 +31,7 @@ const VerificationPanel = ({ report, user, userLocation, onClose, onUpdate }) =>
       : null;
 
   const distanceKm = distance != null ? (distance / 1000).toFixed(1) : '?';
-  const canVerify = distance != null && distance <= 20000;
+  const canVerify = distance != null && distance <= 10000;
 
   const handleVerify = async (status) => {
     if (!userLocation || !user) return;
@@ -94,7 +94,7 @@ const VerificationPanel = ({ report, user, userLocation, onClose, onUpdate }) =>
           ) : !canVerify ? (
             <div className="too-far-box">
               <p>TOO FAR TO VERIFY</p>
-              <p>Move within 20km of the event</p>
+              <p>Move within 10km of the event</p>
             </div>
           ) : (
             <>
