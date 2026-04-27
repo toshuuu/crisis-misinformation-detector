@@ -43,3 +43,17 @@ exports.getReportById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.deleteReport = async (req, res) => {
+  try {
+    const report = await Report.findByIdAndDelete(req.params.id);
+    if (!report) return res.status(404).json({ error: 'Report not found' });
+    
+    // Notify clients that report was deleted
+    socketHandler.emitEvent('delete_report', req.params.id);
+    
+    res.status(200).json({ message: 'Report deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

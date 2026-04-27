@@ -1,4 +1,4 @@
-import { Clock, Shield, CheckCircle2, AlertTriangle, XCircle, Info } from 'lucide-react';
+import { Clock, Shield, CheckCircle2, AlertTriangle, XCircle, Info, Trash2 } from 'lucide-react';
 
 const STATUS_ICONS = {
   active: <AlertTriangle size={14} color="#FF3B3B" />,
@@ -7,7 +7,7 @@ const STATUS_ICONS = {
   false: <XCircle size={14} color="#6B7280" />,
 };
 
-const ReportList = ({ reports, onReportClick, selectedId }) => {
+const ReportList = ({ reports, onReportClick, selectedId, onDelete }) => {
   if (reports.length === 0) {
     return (
       <div className="empty-state">
@@ -27,10 +27,25 @@ const ReportList = ({ reports, onReportClick, selectedId }) => {
         >
           <div className="report-item-top">
             <span className="report-type-badge">{report.type}</span>
-            <span className="report-time">
-              <Clock size={10} />
-              {new Date(report.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </span>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span className="report-time">
+                <Clock size={10} />
+                {new Date(report.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </span>
+              {onDelete && (
+                <button
+                  className="icon-btn"
+                  style={{ color: 'var(--danger)', padding: 0, border: 'none', background: 'none' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(report._id);
+                  }}
+                  title="Delete Report"
+                >
+                  <Trash2 size={14} />
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="report-desc">{report.description}</div>

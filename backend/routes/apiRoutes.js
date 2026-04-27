@@ -13,6 +13,7 @@ router.get('/users/leaderboard', userController.getLeaderboard);
 router.post('/reports', reportController.createReport);
 router.get('/reports', reportController.getReports);
 router.get('/reports/:id', reportController.getReportById);
+router.delete('/reports/:id', reportController.deleteReport);
 
 // Verification routes
 router.post('/verifications', verificationController.verifyReport);

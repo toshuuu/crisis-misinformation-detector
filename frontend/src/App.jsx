@@ -75,6 +75,18 @@ function App() {
     fetchReports();
   }, [fetchReports]);
 
+  const handleDeleteReport = async (reportId) => {
+    try {
+      await api.delete(`/reports/${reportId}`);
+      setReports((prev) => prev.filter((r) => r._id !== reportId));
+      if (selectedReport?._id === reportId) {
+        setSelectedReport(null);
+      }
+    } catch (err) {
+      console.error("Failed to delete report:", err);
+    }
+  };
+
   // Socket Listeners
   useEffect(() => {
     socket.on('new_report', (report) => {
@@ -94,10 +106,16 @@ function App() {
       setReports((prev) => prev.map((r) => (r._id === reportId ? { ...r, status, legitimacyScore } : r)));
     });
 
+    socket.on('delete_report', (reportId) => {
+      setReports((prev) => prev.filter((r) => r._id !== reportId));
+      setSelectedReport((prev) => (prev?._id === reportId ? null : prev));
+    });
+
     return () => {
       socket.off('new_report');
       socket.off('status_change');
       socket.off('verification_update');
+      socket.off('delete_report');
     };
   }, []);
 
@@ -193,6 +211,7 @@ function App() {
               reports={reports}
               onReportClick={handleReportClick}
               selectedId={selectedReport?._id}
+              onDelete={handleDeleteReport}
             />
           </div>
           {/* Verification Panel inside sidebar */}
