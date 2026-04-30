@@ -4,10 +4,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const STATUS_COLORS = {
-  active: '#FF3B3B',
-  verified: '#10B981',
-  uncertain: '#F59E0B',
-  false: '#6B7280',
+  active: '#EA4335',      // Google Red
+  verified: '#34A853',    // Google Green
+  uncertain: '#FBBC05',   // Google Yellow
+  false: '#9AA0A6',       // Google Grey
+
 };
 
 // Custom SVG icon generator for Crisis Reports
